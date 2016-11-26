@@ -3,10 +3,10 @@
     <persistence-unit name="introsde-jpa">
     	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <!-- classes that are mapped to the database -->
+        <class>introsde.assignment.soap.model.Person</class>
         <class>introsde.assignment.soap.model.Measure</class>
         <class>introsde.assignment.soap.model.MeasureDefinition</class>
-        <class>introsde.assignment.soap.model.HealthMesureHistory</class>
-        <class>introsde.assignment.soap.model.Person</class>
+        <class>introsde.assignment.soap.model.HealthMeasureHistory</class>
         <properties>
             <!-- Scan for annotated classes and Hibernate mapping XML files -->
             <property name="hibernate.archive.autodetection" value="class, hbm"/>

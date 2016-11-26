@@ -56,8 +56,6 @@ public class HealthMeasureHistory implements Serializable {
 	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", insertable = true, updatable = true)
 	private MeasureDefinition measureDefinition;
 
-	// notice that we haven't included a reference to the history in Person
-	// this means that we don't have to make this attribute XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "idPerson", referencedColumnName = "idPerson")
 	private Person person;

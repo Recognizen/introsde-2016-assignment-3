@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 @Table(name="\"Person\"")
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
-@XmlType(propOrder = { "personId", "firstname", "lastname", "birthdate", "email",	"username", "currentHealth" })
+@XmlType(propOrder = { "personId", "firstname", "lastname", "birthdate", "email", "username", "currentHealth"})
 @XmlRootElement
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
