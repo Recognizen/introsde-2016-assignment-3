@@ -1,16 +1,15 @@
 package introsde.assignment.soap.model;
 
+import introsde.assignment.soap.dao.LifeCoachDao;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import introsde.assignment.soap.dao.LifeCoachDao;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 @Entity
 @Table(name="\"Person\"")
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
-@XmlType(propOrder = { "id", "firstname", "lastname", "birthdate", "email", "username", "measure" })
+@XmlType(propOrder = { "personId", "firstname", "lastname", "birthdate", "email",	"username", "currentHealth" })
 @XmlRootElement
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -37,8 +36,8 @@ public class Person implements Serializable {
 	@TableGenerator(name="sqlite_person", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Person")
-	@Column(name="id")
-	private long id;
+	@Column(name="idPerson")
+	private long personId;
 
 	@Column(name="firstname")
 	private String firstname;
@@ -56,13 +55,13 @@ public class Person implements Serializable {
 	@Column(name="username")
 	private String username;
 	
-	// mappedBy must be equal to the name of the attribute in Measure that maps this relation
+	// mappedBy must be equal to the name of the attribute in LifeStatus that maps this relation
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Measure> currentHealth;
-
-	@XmlTransient
+	
+	//@XmlTransient
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private List<Measure> healthHistory;
+	private List<HealthMeasureHistory> healthHistory;
 	
 	public Person() {
 	}
@@ -83,12 +82,12 @@ public class Person implements Serializable {
 		this.email = email;
 	}
 
-	public long getId() {
-		return this.id;
+	public long getPersonId() {
+		return this.personId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setPersonId(long personId) {
+		this.personId = personId;
 	}
 	
 	public String getFirstname() {
@@ -115,25 +114,27 @@ public class Person implements Serializable {
 		this.username = username;
 	}
 
+	// the XmlElementWrapper defines the name of node in which the list of LifeStatus elements
+	// will be inserted
 	@XmlElementWrapper(name = "currentHealth")
-	public List<Measure> getMeasure() {
+	@XmlElement(name = "measure")
+	public List<Measure> getCurrentHealth() {
 	    return currentHealth;
 	}
 
-	public void setMeasure(List<Measure> param) {
+	public void setCurrentHealth(List<Measure> param) {
 	    this.currentHealth = param;
-	}
-	/*
+	}	
+	
 	@XmlTransient
-//	@XmlElementWrapper(name = "healthHistory")
-	public List<Measure> getHistory() {
+	public List<HealthMeasureHistory> getHealthHistory() {
 	    return healthHistory;
 	}
 
-	public void setHistory(List<Measure> param) {
+	public void setHealthHistory(List<HealthMeasureHistory> param) {
 	    this.healthHistory = param;
 	}
-	*/
+	
 	// Database operations
 	// Notice that, for this example, we create and destroy and entityManager on each operation. 
 	// How would you change the DAO to not having to create the entity manager every time? 

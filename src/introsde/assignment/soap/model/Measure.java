@@ -1,5 +1,7 @@
 package introsde.assignment.soap.model;
 
+import introsde.assignment.soap.dao.LifeCoachDao;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +25,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import introsde.assignment.soap.dao.LifeCoachDao;
-
 import javax.persistence.OneToOne;
 
 /**
@@ -32,36 +32,35 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-@Table(name = "Measure")
-@NamedQuery(name = "Measure.findAll", query = "SELECT l FROM Measure l")
-@XmlType(propOrder = { "mid", "dateRegistered", "measureValue", "measureType", "measureTypeValue" })
+@Table(name = "LifeStatus")
+@NamedQuery(name = "LifeStatus.findAll", query = "SELECT l FROM Measure l")
+@XmlType(propOrder = { "mid", "measureValue", "dateRegistered", "measureDefinition" })
 @XmlRootElement(name="measure")
 public class Measure implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator="sqlite_measure")
-	@TableGenerator(name="sqlite_measure", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite_lifestatus")
+	@TableGenerator(name="sqlite_lifestatus", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
-	    pkColumnValue="Measure")
-	@Column(name = "mid")
+	    pkColumnValue="LifeStatus")
+	@Column(name = "idMeasure")
 	private long mid;
 
-	@Column(name = "measureValue")
+	@Column(name = "value")
 	private String measureValue;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="dateRegistered")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(name="created")
 	private Date dateRegistered;
 	
-	@Column(name = "measureType")
-	private String measureType;
-	
-	@Column(name = "measureTypeValue")
-	private String measureTypeValue;
+	@OneToOne
+	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", insertable = true, updatable = true)
+	private MeasureDefinition measureDefinition;
 	
 	@ManyToOne
-	@JoinColumn(name="id",referencedColumnName="id")
+	@JoinColumn(name="idPerson",referencedColumnName="idPerson")
 	private Person person;
 
 	public Measure() {
@@ -79,33 +78,24 @@ public class Measure implements Serializable {
 		return this.measureValue;
 	}
 
-	public void setMeasureValue(String measureValue) {
-		this.measureValue = measureValue;
-	}	
-	
-	public String getMeasureType() {
-		return this.measureType;
+	public void setMeasureValue(String value) {
+		this.measureValue = value;
 	}
-
-	public void setMeasureType(String measureType) {
-		this.measureType = measureType;
-	}	
-	
-	public String getMeasureTypeValue() {
-		return this.measureTypeValue;
-	}
-
-	public void setMeasureTypeValue(String measureTypeValue) {
-		this.measureTypeValue = measureTypeValue;
-	}
-	
 	
 	public Date getDateRegistered() {
 		return this.dateRegistered;
 	}
 
-	public void setDateRegistered(Date dateRegistered) {
-		this.dateRegistered = dateRegistered;
+	public void setDateRegistered(Date created) {
+		this.dateRegistered = created;
+	}
+
+	public MeasureDefinition getMeasureDefinition() {
+		return measureDefinition;
+	}
+
+	public void setMeasureDefinition(MeasureDefinition param) {
+		this.measureDefinition = param;
 	}
 
 	// we make this transient for JAXB to avoid and infinite loop on serialization
@@ -121,21 +111,21 @@ public class Measure implements Serializable {
 	// Database operations
 	// Notice that, for this example, we create and destroy and entityManager on each operation. 
 	// How would you change the DAO to not having to create the entity manager every time? 
-	public static Measure getMeasureById(long mid) {
+	public static Measure getLifeStatusById(long lifestatusId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-		Measure p = em.find(Measure.class, mid);
+		Measure p = em.find(Measure.class, lifestatusId);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
 	}
 	
 	public static List<Measure> getAll() {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-	    List<Measure> list = em.createNamedQuery("Mesure.findAll", Measure.class).getResultList();
+	    List<Measure> list = em.createNamedQuery("LifeStatus.findAll", Measure.class).getResultList();
 	    LifeCoachDao.instance.closeConnections(em);
 	    return list;
 	}
 	
-	public static Measure saveMeasure(Measure p) {
+	public static Measure saveLifeStatus(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -145,7 +135,7 @@ public class Measure implements Serializable {
 	    return p;
 	}
 	
-	public static Measure updateMeasure(Measure p) {
+	public static Measure updateLifeStatus(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -155,7 +145,7 @@ public class Measure implements Serializable {
 	    return p;
 	}
 	
-	public static void removeMeasure(Measure p) {
+	public static void removeLifeStatus(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

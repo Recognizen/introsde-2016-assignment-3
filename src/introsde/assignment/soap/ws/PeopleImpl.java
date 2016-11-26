@@ -34,13 +34,13 @@ public class PeopleImpl implements People {
 	@Override
 	public long addPerson(Person person) {
 		Person.savePerson(person);
-		return person.getId();
+		return person.getPersonId();
 	}
 
 	@Override
 	public long updatePerson(Person person) {
 		Person.updatePerson(person);
-		return person.getId();
+		return person.getPersonId();
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class PeopleImpl implements People {
 
 	@Override
 	public long updatePersonHP(long id, Measure hp) {
-		Measure ls = Measure.getMeasureById(hp.getMid());
+	/*	Measure ls = Measure.getMeasureById(hp.getMid());
 		if (ls.getPerson().getId() == id) {
 			Measure.updateMeasure(hp);
 			return hp.getMid();
 		} else {
 			return -1;
-		}
+		}*/
+		return -1;
 	}
-
 }
