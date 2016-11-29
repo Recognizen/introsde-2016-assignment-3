@@ -58,8 +58,7 @@ public class Person implements Serializable {
 	// mappedBy must be equal to the name of the attribute in LifeStatus that maps this relation
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Measure> currentHealth;
-	
-	//@XmlTransient
+
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<HealthMeasureHistory> healthHistory;
 	
@@ -159,6 +158,7 @@ public class Person implements Serializable {
 	// add other database global access operations
 
 	public static Person savePerson(Person p) {
+		//p.setPersonId(0);
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

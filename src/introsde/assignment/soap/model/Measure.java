@@ -111,9 +111,9 @@ public class Measure implements Serializable {
 	// Database operations
 	// Notice that, for this example, we create and destroy and entityManager on each operation. 
 	// How would you change the DAO to not having to create the entity manager every time? 
-	public static Measure getLifeStatusById(long lifestatusId) {
+	public static Measure getMeasureById(long mid) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-		Measure p = em.find(Measure.class, lifestatusId);
+		Measure p = em.find(Measure.class, mid);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
 	}
@@ -125,7 +125,7 @@ public class Measure implements Serializable {
 	    return list;
 	}
 	
-	public static Measure saveLifeStatus(Measure p) {
+	public static Measure saveMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -135,7 +135,7 @@ public class Measure implements Serializable {
 	    return p;
 	}
 	
-	public static Measure updateLifeStatus(Measure p) {
+	public static Measure updateMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -145,7 +145,7 @@ public class Measure implements Serializable {
 	    return p;
 	}
 	
-	public static void removeLifeStatus(Measure p) {
+	public static void removeMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

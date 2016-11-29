@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -31,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="HealthMeasureHistory")
 @NamedQuery(name="HealthMeasureHistory.findAll", query="SELECT h FROM HealthMeasureHistory h")
-//@XmlType(propOrder = { "mid","value","created"})
+@XmlType(propOrder = { "mid", "measureValue", "dateRegistered", "measureDefinition"})
 @XmlRootElement(name ="measure")
 public class HealthMeasureHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,12 +46,12 @@ public class HealthMeasureHistory implements Serializable {
 	private long mid;
 	
 	@Column(name="value")
-	private String value;
+	private String measureValue;
 
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="timestamp")
-	private Date created;
+	private Date dateRegistered;
 
 	@OneToOne
 	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", insertable = true, updatable = true)
@@ -71,20 +72,20 @@ public class HealthMeasureHistory implements Serializable {
 		this.mid = idMeasureHistory;
 	}
 	
-	public String getValue() {
-		return this.value;
+	public String getMeasureValue() {
+		return this.measureValue;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setMeasureValue(String value) {
+		this.measureValue = value;
 	}
 
-	public Date getCreated() {
-		return this.created;
+	public Date getDateRegistered() {
+		return this.dateRegistered;
 	}
 
-	public void setCreated(Date timestamp) {
-		this.created = timestamp;
+	public void setDateRegistered(Date timestamp) {
+		this.dateRegistered = timestamp;
 	}
 	
 	public MeasureDefinition getMeasureDefinition() {
