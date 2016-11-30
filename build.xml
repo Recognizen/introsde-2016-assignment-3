@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <project name="sdelab08" default="compile" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <project name="Assignment3-Server" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
         <!-- PART 1: Ivy properties, download, installation and configuration -->
         <property name="ivy.install.version" value="2.4.0-rc1" />
         <property name="ivy.jar.dir" value="${basedir}/ivy" />
@@ -68,8 +68,10 @@
             <delete dir="${build.dir}" />
             <echo message="${build.dir} has been deleted" />
         </target>
+
     	
-        <target name="compile" depends="clean, init">
+    	<!-- Target installs and downloads ivy libraries and compiles the project -->
+        <target name="install" depends="clean, init">
             <echo message="Compile target has been called" />
             <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false">
             </javac>
@@ -86,10 +88,11 @@
                 </fileset>
             </copy>
         </target>
-    	<!--
+    	
+    	<!-- Target runs the endpoint. Publishes the service -->
         <target name="start">
-            <echo message="app start introsde.rest.ehealth.App in ${build.dir}" />
-            <java classname="introsde.rest.ehealth.App" classpath="${build.dir}" fork="true">
+            <echo message="app start introsde.assignment.soap.endpoint.PeoplePublisher in ${build.dir}" />
+            <java classname="introsde.assignment.soap.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />
@@ -100,14 +103,5 @@
                 </classpath>
             </java>
         </target>
-		-->
-        <!-- make sure you have created first the WebContent folder, including a META-INF folder, WEB-INF/web.xml file and WEB-INF/lib folder -->
-        <target name="create.war" depends="compile">
-            <war destfile="sdelab06.war" webxml="${web.dir}/WebContent/WEB-INF/web.xml">
-                <fileset dir="${web.dir}/WebContent">
-                    <include name="**/*.*" />
-                </fileset>
-                <classes dir="${build.dir}" />
-            </war>
-        </target>
+
     </project>

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import introsde.assignment.soap.model.HealthMeasureHistory;
@@ -206,8 +205,8 @@ public class PeopleImpl implements People {
 		return null;
 	}
 	
-
-	//Task 10
+/*
+	//Task 10.1 Current Measure
 	public Measure updatePersonMeasure(long id, Measure measure){
 		
 		Person p = Person.getPersonById(id);
@@ -235,5 +234,36 @@ public class PeopleImpl implements People {
 	    }
 	    
 	    return null;
+	}*/
+	
+	//Task 10.2 History Measure
+	public HealthMeasureHistory updatePersonMeasure(long id, HealthMeasureHistory measure){
+		
+		Person p = Person.getPersonById(id);
+		
+	    HealthMeasureHistory existing = null;
+	    //find the measure of the person having given id (check the type constraint)
+	    for(HealthMeasureHistory m : p.getHealthHistory()){
+	    	if(m.getMid() == measure.getMid() 
+	    			&& m.getMeasureDefinition().getMeasureType()
+	    			.equals(measure.getMeasureDefinition().getMeasureType())){
+	    		
+	    		//the measure will keep the old MeasureDefinition
+	    		existing = m;
+	    	}
+	    }
+	    
+	    if(existing != null ){
+		    //update only given fields
+		    if(measure.getMeasureValue() != null)
+		    	existing.setMeasureValue(measure.getMeasureValue());
+		    if(measure.getDateRegistered() != null)
+		    	existing.setDateRegistered(measure.getDateRegistered());
+		    
+		    return HealthMeasureHistory.updateHealthMeasureHistory(existing);
+	    }
+	    
+	    return null;
 	}
+	
 }

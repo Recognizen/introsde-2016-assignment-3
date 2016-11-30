@@ -64,10 +64,15 @@ public interface People {
     @WebMethod(operationName="savePersonMeasure")
     @WebResult(name="measure") 
     public Person savePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
-
-    //Task 10
+/*
+    //Task 10.1 Update current Measure
     @WebMethod(operationName="updatePersonMeasure")
     @WebResult(name="measure") 
     public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
+*/
+    //Task 10.2 Update old Measure in history
+    @WebMethod(operationName="updatePersonMeasure")
+    @WebResult(name="measure") 
+    public HealthMeasureHistory updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") HealthMeasureHistory m);
 
 }

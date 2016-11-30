@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import introsde.assignment.soap.model.HealthMeasureHistory;
 import introsde.assignment.soap.model.Measure;
 import introsde.assignment.soap.model.MeasureDefinition;
 import introsde.assignment.soap.model.Person;
@@ -67,11 +68,17 @@ public class PeopleClient{
         m.setMeasureValue("20");
         //Task 9
      //   people.savePersonMeasure(3, m);
-        
-        m.setMeasureValue("999");
+        /*
+        m.setMeasureValue("777");
         m.setMid(786);
         //Task 10
         people.updatePersonMeasure(3, m);
+        */
+        HealthMeasureHistory historyM = new HealthMeasureHistory();
+        historyM.setMeasureValue("333");
+        historyM.setMeasureDefinition(mDef);
+        historyM.setMid(153);
+        people.updatePersonMeasure(3, historyM);
         
     }
 }
