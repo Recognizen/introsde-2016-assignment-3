@@ -73,6 +73,6 @@ public interface People {
     //Task 10.2 Update old Measure in history
     @WebMethod(operationName="updatePersonHistoryMeasure")
     @WebResult(name="measureOut") 
-    public HealthMeasureHistory updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") HealthMeasureHistory m);
+    public HealthMeasureHistory updatePersonHistoryMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") HealthMeasureHistory m);
 
 }
