@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URISyntaxException;
 
-import introsde.assignment.soap.PeopleImpl;
+import introsde.assignment.soap.ws.PeopleImpl;
 
 import javax.xml.ws.Endpoint;
 
