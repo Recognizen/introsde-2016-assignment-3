@@ -205,7 +205,6 @@ public class PeopleImpl implements People {
 		return null;
 	}
 	
-/*
 	//Task 10.1 Current Measure
 	public Measure updatePersonMeasure(long id, Measure measure){
 		
@@ -234,7 +233,7 @@ public class PeopleImpl implements People {
 	    }
 	    
 	    return null;
-	}*/
+	}
 	
 	//Task 10.2 History Measure
 	public HealthMeasureHistory updatePersonMeasure(long id, HealthMeasureHistory measure){
