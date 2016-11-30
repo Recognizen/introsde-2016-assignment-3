@@ -236,7 +236,7 @@ public class PeopleImpl implements People {
 	}
 	
 	//Task 10.2 History Measure
-	public HealthMeasureHistory updatePersonMeasure(long id, HealthMeasureHistory measure){
+	public HealthMeasureHistory updatePersonHistoryMeasure(long id, HealthMeasureHistory measure){
 		
 		Person p = Person.getPersonById(id);
 		
