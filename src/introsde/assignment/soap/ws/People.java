@@ -31,17 +31,18 @@ public interface People {
     
     //Task 3
     @WebMethod(operationName="updatePerson")
-    @WebResult(name="personOut") 
+    @WebResult(name="person") 
     public Person updatePerson(@WebParam(name="person") Person p);
 
+    
     //Tast 4
     @WebMethod(operationName="createPerson")
-    @WebResult(name="personOut") 
+    @WebResult(name="person") 
     public Person createPerson(@WebParam(name="person") Person p);
 
     //Task 5
     @WebMethod(operationName="deletePerson")
-    @WebResult(name="deleteOut") 
+    @WebResult(name="personId") 
     public long deletePerson(@WebParam(name="personId") long id);
     
     //Task 6
@@ -62,17 +63,17 @@ public interface People {
 
     //Task 9
     @WebMethod(operationName="savePersonMeasure")
-    @WebResult(name="measureOut") 
+    @WebResult(name="measure") 
     public Person savePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
 
     //Task 10.1 Update current Measure
     @WebMethod(operationName="updatePersonMeasure")
-    @WebResult(name="measureOut") 
+    @WebResult(name="measure") 
     public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
 
     //Task 10.2 Update old Measure in history
     @WebMethod(operationName="updatePersonHistoryMeasure")
-    @WebResult(name="measureOut") 
+    @WebResult(name="measure") 
     public HealthMeasureHistory updatePersonHistoryMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") HealthMeasureHistory m);
 
 }
