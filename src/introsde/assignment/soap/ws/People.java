@@ -8,6 +8,7 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.WebResult;
 import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
@@ -16,7 +17,7 @@ import introsde.assignment.soap.model.HealthMeasureHistory;
 import introsde.assignment.soap.model.Measure;
 
 @WebService
-@SOAPBinding(style = Style.DOCUMENT, use=Use.LITERAL) //optional
+@SOAPBinding(style = Style.DOCUMENT, use=Use.LITERAL, parameterStyle= ParameterStyle.WRAPPED) //optional
 public interface People {
 	 
 	//Task 1
@@ -32,13 +33,13 @@ public interface People {
     //Task 3
     @WebMethod(operationName="updatePerson")
     @WebResult(name="person") 
-    public Person updatePerson(@WebParam(name="person") Person p);
+    public Person updatePerson(@WebParam(name="person", targetNamespace="http://ws.soap.assignment.introsde/") Person p);
 
     
     //Tast 4
     @WebMethod(operationName="createPerson")
     @WebResult(name="person") 
-    public Person createPerson(@WebParam(name="person") Person p);
+    public Person createPerson(@WebParam(name="person", targetNamespace="http://ws.soap.assignment.introsde/") Person p);
 
     //Task 5
     @WebMethod(operationName="deletePerson")
@@ -58,22 +59,22 @@ public interface People {
     
     //Task 8
     @WebMethod(operationName="readPersonMeasure")
-    @WebResult(name="measure") 
+    @WebResult(name="healthHistory") 
     public HealthMeasureHistory readPersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measureType") String measureType, @WebParam(name="mid") long mid );
 
     //Task 9
     @WebMethod(operationName="savePersonMeasure")
-    @WebResult(name="measure") 
-    public Person savePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
+    @WebResult(name="person") 
+    public Person savePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure", targetNamespace="http://ws.soap.assignment.introsde/") Measure m);
 
     //Task 10.1 Update current Measure
     @WebMethod(operationName="updatePersonMeasure")
     @WebResult(name="measure") 
-    public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
+    public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure" , targetNamespace="http://ws.soap.assignment.introsde/") Measure m);
 
     //Task 10.2 Update old Measure in history
     @WebMethod(operationName="updatePersonHistoryMeasure")
-    @WebResult(name="measure") 
-    public HealthMeasureHistory updatePersonHistoryMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") HealthMeasureHistory m);
+    @WebResult(name="healthHistory") 
+    public HealthMeasureHistory updatePersonHistoryMeasure(@WebParam(name="personId") long id, @WebParam(name="measureHistory") HealthMeasureHistory m);
 
 }

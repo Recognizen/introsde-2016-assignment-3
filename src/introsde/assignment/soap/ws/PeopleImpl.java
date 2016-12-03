@@ -111,7 +111,7 @@ public class PeopleImpl implements People {
 			return -1;
 		}
 	}
-	//Tasl 6
+	//Task 6
 	@Override
 	public List<HealthMeasureHistory> readPersonHistory(long id, String measureType) {
 			Person p = Person.getPersonById(id);
@@ -155,6 +155,11 @@ public class PeopleImpl implements People {
 	
 	//Task 9
 	public Person savePersonMeasure(long id, Measure measure){
+		
+		System.out.println("VALUE "+ measure.getMeasureValue());
+		if(measure.getMeasureDefinition() == null)
+			System.out.println("FUCKKK");
+		System.out.println("TYPE "+ measure.getMeasureDefinition().getMeasureType());
 	
 		//Making sure the type defined is allowed
 		String measureType = measure.getMeasureDefinition().getMeasureType();
