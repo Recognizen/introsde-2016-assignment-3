@@ -33,13 +33,13 @@ public interface People {
     //Task 3
     @WebMethod(operationName="updatePerson")
     @WebResult(name="person") 
-    public Person updatePerson(@WebParam(name="person", targetNamespace="http://ws.soap.assignment.introsde/") Person p);
+    public Person updatePerson(@WebParam(name="person") Person p);
 
     
     //Tast 4
     @WebMethod(operationName="createPerson")
     @WebResult(name="person") 
-    public Person createPerson(@WebParam(name="person", targetNamespace="http://ws.soap.assignment.introsde/") Person p);
+    public Person createPerson(@WebParam(name="person") Person p);
 
     //Task 5
     @WebMethod(operationName="deletePerson")
@@ -69,8 +69,8 @@ public interface People {
 
     //Task 10.1 Update current Measure
     @WebMethod(operationName="updatePersonMeasure")
-    @WebResult(name="measure") 
-    public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure" , targetNamespace="http://ws.soap.assignment.introsde/") Measure m);
+    @WebResult(name="measureOut") 
+    public Measure updatePersonMeasure(@WebParam(name="personId") long id, @WebParam(name="measure") Measure m);
 
     //Task 10.2 Update old Measure in history
     @WebMethod(operationName="updatePersonHistoryMeasure")
