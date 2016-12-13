@@ -7,10 +7,10 @@
 #Description
 
 Repository contains four packages:
--introsde.assignment.soap.model - annotated classes used to model the database structure
--introsde.assignment.soap.dao - used to connect the model to the database
--introsde.assignment.soap.ws - contains the People SOAP interface as well as the methods implementation PeopleImpl
--introsde.assignment.soap.endpoint - contains the PeoplePublisher which creates a standalone server that exposes the people webservice
+* introsde.assignment.soap.model - annotated classes used to model the database structure
+* introsde.assignment.soap.dao - used to connect the model to the database
+* introsde.assignment.soap.ws - contains the People SOAP interface as well as the methods implementation PeopleImpl
+* introsde.assignment.soap.endpoint - contains the PeoplePublisher which creates a standalone server that exposes the people webservice
 
 ##The Model
 The model includes a class for storing a Person. 
